@@ -32,6 +32,8 @@ else:
 
 @bot.event
 async def on_ready():
+    activity = nextcord.Game(name='my game')
+    await bot.change_presence(status=nextcord.Status.idle, activity=activity)
     print(f'Logged in as {bot.user}')
     for guild in bot.guilds:
         invites = await guild.invites()
