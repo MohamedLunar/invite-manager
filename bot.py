@@ -115,29 +115,6 @@ async def i(ctx, member: nextcord.Member = None):
     else:
         # Mention the target user and show their invites
         await ctx.send(f'{member.mention} has **__{total_uses}__** invites!')
-        
-# Slash command /invited
-@bot.slash_command(name="invited", description="Display the list of members a user has invited")
-async def invited(interaction: nextcord.Interaction, member: nextcord.Member = None):
-    member = member or interaction.user
-    invites = await interaction.guild.invites()
-    
-    invited_members = [invite.inviter.mention for invite in invites if invite.inviter == member]
-    
-    if invited_members:
-        invite_list = "\n".join(invited_members)
-        description = f"Invited members:\n{invite_list}"
-    else:
-        description = "No members invited yet."
-
-    embed = nextcord.Embed(
-        title=f"{member.mention}'s Invites",
-        description=description,
-        color=nextcord.Color.blue()
-    )
-    embed.set_footer(text=f"Requested by {interaction.user}", icon_url=interaction.user.avatar.url)
-
-    await interaction.response.send_message(embed=embed)
 
 @bot.command(name="help")
 async def help(ctx):
